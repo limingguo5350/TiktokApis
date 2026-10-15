@@ -33,7 +33,7 @@
 python -m pip install -r requirements.txt
 ```
 
-本项目是库；根目录的 `demo.py` 提供私密发布示例，默认只做本地预检。当前唯一已实现的认证入口是 `TiktokAuth.from_cookie`；账密、二维码、短信登录只是明确抛出 `NotImplementedError` 的占位接口。
+本项目是库；根目录的 `demo.py` 提供私密发布示例，默认只做本地预检。登录态通过 `TiktokAuth.from_cookie` 提供，匿名 msToken 另可使用下文的纯 HTTP 申请；账密、二维码、短信登录只是明确抛出 `NotImplementedError` 的占位接口。
 
 ```python
 import os
@@ -75,6 +75,43 @@ photos = api.creator_publish_photos(["1.jpg", "2.jpg"], "图集文案")
 ```
 
 直播接收用 `iter_live_ws_events(live_id, room_id, ...)`；私信接收用 `iter_im_ws_messages(...)`。两者都是迭代器，调用方应自行管理退出事件与重连。私信推送已能连接并解析协议，但由于缺少另一账号发来的测试消息，尚未完成跨账号端到端验收。
+
+## msToken 无浏览器申请与刷新
+
+新增纯 Python `MsTokenClient`：本地构造并加密 TikTok WebMssdk 报告，再通过 HTTPS 申请服务端签发的 msToken。运行时无需浏览器、CDP、Node.js 或事先复制 token；需要可访问 TikTok 的网络。
+
+```python
+from builder.auth import TiktokAuth
+
+auth = TiktokAuth()  # 也可使用现有 from_cookie 会话
+try:
+    auth.ensure_ms_token(proxy="http://127.0.0.1:7892")  # 代理按实际网络配置
+    # auth.ms_token / auth.cookie_str 已同步，供请求层使用
+    auth.refresh_ms_token()
+finally:
+    auth.close_ms_token_client()
+```
+
+已有外部 token 时，`ensure_ms_token()` 默认保留；显式 `refresh_ms_token()` 会重新申请并同步所有 storage/cookie 副本。可通过 `utils.mstoken.MsTokenClient` 单独使用、配置缓存或设备模板。
+
+```sh
+python mstoken_demo.py --proxy http://127.0.0.1:7892 --refresh
+python -m pytest -q tests
+```
+
+2026-10-15：纯 HTTP 申请与刷新已通过；新 token 配合 Python 签名器实测取得 5 个公开播放列表、1 个公开收藏合集，实际出站 token 与申请值一致。对照发现这两个接口使用假 token 或不带 token 也返回数据，因此不能据此认定服务端严格验 token 通过。请求上下文最初取自匿名浏览器；从零纯 HTTP 建立完整业务会话尚未通过，用户详情和作品列表仍有空响应。该报告路线在评论回复接口仍返回空正文；评论回复已另用下述响应头引导路径通过验证。协议和早期验证范围见 [msToken 文档](docs/mstoken.md)。
+
+## 评论回复：本地签名与 token 自动轮换
+
+2026-10-15 实测：新增 `CommentRepliesClient` 使用项目 Python 签名器生成参数；不传原 msToken 和任何原 Cookie，首次 GET 从响应头取得新 token，重签后成功返回 3 条目标回复。3 次独立启动、翻页及损坏 Dynosaur 后失败/恢复后成功的对照均已完成。75 项本地测试通过。
+
+```sh
+.venv/bin/python reply_verify.py \
+  --context .private-ms-token/reply-context.json \
+  --proxy http://127.0.0.1:7892
+```
+
+运行时不需要浏览器、CDP 或 Node.js。`msToken` 由服务端在线签发，业务和设备参数仍来自请求上下文。以上已验证入口是 `api.comment_replies.CommentRepliesClient`。上下文格式、业务调用、重试边界和脱敏真实证据见 [评论回复文档](docs/reply-client.md)。
 
 ## 🎬 发布 Demo
 

@@ -1,0 +1,475 @@
+{
+  "generated_at_utc": "2026-10-15T04:04:08.345556+00:00",
+  "date_local": "2026-10-15",
+  "timezone": "Asia/Shanghai",
+  "endpoint": "https://www.tiktok.com/api/comment/list/reply/",
+  "method": "GET",
+  "requested_item_id": "7654645616496168200",
+  "requested_comment_id": "7655382457587958535",
+  "requested_count": "3",
+  "requested_cursor": "3",
+  "supplied_token_length": 176,
+  "supplied_token_locations_match": true,
+  "environment": {
+    "transport_primary": "curl_cffi Chrome impersonation",
+    "transport_original_baseline_also": "requests",
+    "configured_proxy": "same local HTTP proxy; egress IP stability not measured",
+    "tls_verification": true,
+    "isolated_http_session_per_case": true,
+    "cookies_not_carried_from_response_to_next_case": true,
+    "raw_cookies_tokens_signatures_and_comment_text_excluded": true
+  },
+  "acceptance": {
+    "required": [
+      "HTTP 200",
+      "JSON object",
+      "status_code == 0",
+      "nonempty comments list",
+      "all comment aweme_id/reply_id match requested video/parent"
+    ],
+    "http_200_empty_is_success": false
+  },
+  "groups": {
+    "supplied_baselines": {
+      "captured_at_utc": "2026-10-15T03:56:08.950560+00:00",
+      "results": [
+        {
+          "case": "exact_supplied_baseline",
+          "transport": "requests",
+          "http_status": 200,
+          "body_bytes": 0,
+          "content_type": "application/json",
+          "response_has_new_token": true,
+          "response_is_json": false
+        },
+        {
+          "case": "exact_supplied_baseline",
+          "transport": "curl_cffi",
+          "http_status": 200,
+          "body_bytes": 0,
+          "content_type": "application/json",
+          "response_has_new_token": true,
+          "response_is_json": false
+        }
+      ]
+    },
+    "fresh_signatures": {
+      "captured_at_utc": null,
+      "results": [
+        {
+          "case": "original_token_fresh_signatures",
+          "http_status": 200,
+          "body_bytes": 8395,
+          "response_is_json": true,
+          "response_has_new_token": true,
+          "status_code": 0,
+          "comments_count": 3,
+          "cursor": 6,
+          "has_more": 1,
+          "all_items_match_requested_video": true,
+          "all_items_match_requested_parent": true,
+          "returned_comment_ids_are_unique": true
+        },
+        {
+          "case": "new_issued_token_fresh_signatures",
+          "http_status": 200,
+          "body_bytes": 0,
+          "response_is_json": false,
+          "response_has_new_token": true
+        }
+      ]
+    },
+    "single_variable_ablations": {
+      "captured_at_utc": "2026-10-15T04:00:41.990125+00:00",
+      "results": [
+        {
+          "case": "baseline_start",
+          "http_status": 200,
+          "body_bytes": 8393,
+          "response_is_json": true,
+          "response_has_new_token": true,
+          "business_success": true,
+          "status_code": 0,
+          "comments_count": 3,
+          "cursor": 6,
+          "has_more": 1,
+          "all_items_match_requested_video": true,
+          "all_items_match_requested_parent": true,
+          "returned_comment_ids_are_unique": true
+        },
+        {
+          "case": "omit_gnarly",
+          "http_status": 200,
+          "body_bytes": 8393,
+          "response_is_json": true,
+          "response_has_new_token": true,
+          "business_success": true,
+          "status_code": 0,
+          "comments_count": 3,
+          "cursor": 6,
+          "has_more": 1,
+          "all_items_match_requested_video": true,
+          "all_items_match_requested_parent": true,
+          "returned_comment_ids_are_unique": true
+        },
+        {
+          "case": "corrupt_gnarly",
+          "http_status": 200,
+          "body_bytes": 8318,
+          "response_is_json": true,
+          "response_has_new_token": true,
+          "business_success": true,
+          "status_code": 0,
+          "comments_count": 3,
+          "cursor": 6,
+          "has_more": 1,
+          "all_items_match_requested_video": true,
+          "all_items_match_requested_parent": true,
+          "returned_comment_ids_are_unique": true
+        },
+        {
+          "case": "omit_bogus",
+          "http_status": 200,
+          "body_bytes": 8389,
+          "response_is_json": true,
+          "response_has_new_token": true,
+          "business_success": true,
+          "status_code": 0,
+          "comments_count": 3,
+          "cursor": 6,
+          "has_more": 1,
+          "all_items_match_requested_video": true,
+          "all_items_match_requested_parent": true,
+          "returned_comment_ids_are_unique": true
+        },
+        {
+          "case": "bogus_2",
+          "http_status": 200,
+          "body_bytes": 8389,
+          "response_is_json": true,
+          "response_has_new_token": true,
+          "business_success": true,
+          "status_code": 0,
+          "comments_count": 3,
+          "cursor": 6,
+          "has_more": 1,
+          "all_items_match_requested_video": true,
+          "all_items_match_requested_parent": true,
+          "returned_comment_ids_are_unique": true
+        },
+        {
+          "case": "baseline_4",
+          "http_status": 200,
+          "body_bytes": 8389,
+          "response_is_json": true,
+          "response_has_new_token": true,
+          "business_success": true,
+          "status_code": 0,
+          "comments_count": 3,
+          "cursor": 6,
+          "has_more": 1,
+          "all_items_match_requested_video": true,
+          "all_items_match_requested_parent": true,
+          "returned_comment_ids_are_unique": true
+        },
+        {
+          "case": "omit_dynosaur_regnarly",
+          "http_status": 200,
+          "body_bytes": 0,
+          "response_is_json": false,
+          "response_has_new_token": true,
+          "business_success": false
+        },
+        {
+          "case": "corrupt_dynosaur_regnarly",
+          "http_status": 200,
+          "body_bytes": 0,
+          "response_is_json": false,
+          "response_has_new_token": true,
+          "business_success": false
+        },
+        {
+          "case": "omit_query_token_regnarly",
+          "http_status": 200,
+          "body_bytes": 8389,
+          "response_is_json": true,
+          "response_has_new_token": true,
+          "business_success": true,
+          "status_code": 0,
+          "comments_count": 3,
+          "cursor": 6,
+          "has_more": 1,
+          "all_items_match_requested_video": true,
+          "all_items_match_requested_parent": true,
+          "returned_comment_ids_are_unique": true
+        },
+        {
+          "case": "corrupt_query_token_resign",
+          "http_status": 403,
+          "body_bytes": 0,
+          "response_is_json": false,
+          "response_has_new_token": true,
+          "business_success": false
+        },
+        {
+          "case": "baseline_8",
+          "http_status": 200,
+          "body_bytes": 8314,
+          "response_is_json": true,
+          "response_has_new_token": true,
+          "business_success": true,
+          "status_code": 0,
+          "comments_count": 3,
+          "cursor": 6,
+          "has_more": 1,
+          "all_items_match_requested_video": true,
+          "all_items_match_requested_parent": true,
+          "returned_comment_ids_are_unique": true
+        },
+        {
+          "case": "omit_cookie_token",
+          "http_status": 200,
+          "body_bytes": 8314,
+          "response_is_json": true,
+          "response_has_new_token": true,
+          "business_success": true,
+          "status_code": 0,
+          "comments_count": 3,
+          "cursor": 6,
+          "has_more": 1,
+          "all_items_match_requested_video": true,
+          "all_items_match_requested_parent": true,
+          "returned_comment_ids_are_unique": true
+        },
+        {
+          "case": "corrupt_cookie_token",
+          "http_status": 200,
+          "body_bytes": 8314,
+          "response_is_json": true,
+          "response_has_new_token": true,
+          "business_success": true,
+          "status_code": 0,
+          "comments_count": 3,
+          "cursor": 6,
+          "has_more": 1,
+          "all_items_match_requested_video": true,
+          "all_items_match_requested_parent": true,
+          "returned_comment_ids_are_unique": true
+        },
+        {
+          "case": "corrupt_both_tokens_resign",
+          "http_status": 403,
+          "body_bytes": 0,
+          "response_is_json": false,
+          "response_has_new_token": true,
+          "business_success": false
+        },
+        {
+          "case": "omit_all_cookies",
+          "http_status": 200,
+          "body_bytes": 8389,
+          "response_is_json": true,
+          "response_has_new_token": true,
+          "business_success": true,
+          "status_code": 0,
+          "comments_count": 3,
+          "cursor": 6,
+          "has_more": 1,
+          "all_items_match_requested_video": true,
+          "all_items_match_requested_parent": true,
+          "returned_comment_ids_are_unique": true
+        },
+        {
+          "case": "baseline_12",
+          "http_status": 200,
+          "body_bytes": 8389,
+          "response_is_json": true,
+          "response_has_new_token": true,
+          "business_success": true,
+          "status_code": 0,
+          "comments_count": 3,
+          "cursor": 6,
+          "has_more": 1,
+          "all_items_match_requested_video": true,
+          "all_items_match_requested_parent": true,
+          "returned_comment_ids_are_unique": true
+        },
+        {
+          "case": "omit_ttwid",
+          "http_status": 200,
+          "body_bytes": 8314,
+          "response_is_json": true,
+          "response_has_new_token": true,
+          "business_success": true,
+          "status_code": 0,
+          "comments_count": 3,
+          "cursor": 6,
+          "has_more": 1,
+          "all_items_match_requested_video": true,
+          "all_items_match_requested_parent": true,
+          "returned_comment_ids_are_unique": true
+        },
+        {
+          "case": "omit_odin_tt",
+          "http_status": 200,
+          "body_bytes": 8389,
+          "response_is_json": true,
+          "response_has_new_token": true,
+          "business_success": true,
+          "status_code": 0,
+          "comments_count": 3,
+          "cursor": 6,
+          "has_more": 1,
+          "all_items_match_requested_video": true,
+          "all_items_match_requested_parent": true,
+          "returned_comment_ids_are_unique": true
+        },
+        {
+          "case": "omit_waftokenid",
+          "http_status": 200,
+          "body_bytes": 8389,
+          "response_is_json": true,
+          "response_has_new_token": true,
+          "business_success": true,
+          "status_code": 0,
+          "comments_count": 3,
+          "cursor": 6,
+          "has_more": 1,
+          "all_items_match_requested_video": true,
+          "all_items_match_requested_parent": true,
+          "returned_comment_ids_are_unique": true
+        },
+        {
+          "case": "omit_tt_chain_token",
+          "http_status": 200,
+          "body_bytes": 9371,
+          "response_is_json": true,
+          "response_has_new_token": true,
+          "business_success": true,
+          "status_code": 0,
+          "comments_count": 3,
+          "cursor": 6,
+          "has_more": 1,
+          "all_items_match_requested_video": true,
+          "all_items_match_requested_parent": true,
+          "returned_comment_ids_are_unique": true
+        },
+        {
+          "case": "baseline_16",
+          "http_status": 200,
+          "body_bytes": 9446,
+          "response_is_json": true,
+          "response_has_new_token": true,
+          "business_success": true,
+          "status_code": 0,
+          "comments_count": 3,
+          "cursor": 6,
+          "has_more": 1,
+          "all_items_match_requested_video": true,
+          "all_items_match_requested_parent": true,
+          "returned_comment_ids_are_unique": true
+        },
+        {
+          "case": "omit_sdk_uid",
+          "http_status": 200,
+          "body_bytes": 8389,
+          "response_is_json": true,
+          "response_has_new_token": true,
+          "business_success": true,
+          "status_code": 0,
+          "comments_count": 3,
+          "cursor": 6,
+          "has_more": 1,
+          "all_items_match_requested_video": true,
+          "all_items_match_requested_parent": true,
+          "returned_comment_ids_are_unique": true
+        },
+        {
+          "case": "omit_csrf",
+          "http_status": 200,
+          "body_bytes": 8389,
+          "response_is_json": true,
+          "response_has_new_token": true,
+          "business_success": true,
+          "status_code": 0,
+          "comments_count": 3,
+          "cursor": 6,
+          "has_more": 1,
+          "all_items_match_requested_video": true,
+          "all_items_match_requested_parent": true,
+          "returned_comment_ids_are_unique": true
+        },
+        {
+          "case": "baseline_end",
+          "http_status": 200,
+          "body_bytes": 8339,
+          "response_is_json": true,
+          "response_has_new_token": true,
+          "business_success": true,
+          "status_code": 0,
+          "comments_count": 3,
+          "cursor": 6,
+          "has_more": 1,
+          "all_items_match_requested_video": true,
+          "all_items_match_requested_parent": true,
+          "returned_comment_ids_are_unique": true
+        }
+      ]
+    },
+    "later_baseline_attempt_1": {
+      "captured_at_utc": "2026-10-15T04:01:20.657940+00:00",
+      "results": [
+        {
+          "case": "dependencies_baseline_start",
+          "http_status": 200,
+          "body_bytes": 0,
+          "response_is_json": false,
+          "response_has_new_token": true,
+          "business_success": false
+        }
+      ]
+    },
+    "later_baseline_attempt_2": {
+      "captured_at_utc": "2026-10-15T04:02:22.725526+00:00",
+      "results": [
+        {
+          "case": "dependencies_baseline_start",
+          "http_status": 200,
+          "body_bytes": 0,
+          "response_is_json": false,
+          "response_has_new_token": true,
+          "business_success": false
+        }
+      ]
+    },
+    "later_optional_token_control": {
+      "captured_at_utc": "2026-10-15T04:03:14.441594+00:00",
+      "results": [
+        {
+          "case": "optional_original_token_control",
+          "http_status": 200,
+          "body_bytes": 0,
+          "response_is_json": false,
+          "response_has_new_token": true,
+          "business_success": false
+        },
+        {
+          "case": "optional_no_query_token",
+          "http_status": 200,
+          "body_bytes": 0,
+          "response_is_json": false,
+          "response_has_new_token": true,
+          "business_success": false
+        }
+      ]
+    }
+  },
+  "limits": [
+    "Ablation phase includes 6 successful interleaved controls; all returned three correct child comments, cursor 6, has_more 1.",
+    "Later four control requests returned HTTP 200 empty bodies; no additional dependency ablations were run on those failing baselines.",
+    "X-Dynosaur removal and replacement with invalid were tested; internal query/UA binding and same-length tampering were not established online.",
+    "Query msToken omission succeeded while cookie token remained; cookie omission succeeded while valid query token remained. Simultaneous omission has no successful observation.",
+    "Newly server-issued token plus fresh signatures failed this replies endpoint; /web/report issuance and permissive public endpoint success do not establish acceptance here.",
+    "Fixed proxy URL does not prove fixed exit IP; observations are scoped to the measured endpoint, time and context."
+  ]
+}

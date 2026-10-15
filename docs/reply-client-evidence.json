@@ -1,0 +1,377 @@
+{
+  "date": "2026-10-15",
+  "endpoint": "/api/comment/list/reply/",
+  "method": "GET",
+  "item_id": "7654645616496168200",
+  "comment_id": "7655382457587958535",
+  "count": 3,
+  "initial_cursor": 3,
+  "browser_or_cdp_used": false,
+  "local_signer": "builder.signer.TiktokSigner",
+  "business_context_source": "User-supplied request: business/device/region/UA fields retained; captured signatures discarded. Fresh bootstrap discards input msToken and all input cookies.",
+  "production_client_cases": [
+    {
+      "case": "cli_fresh_bootstrap",
+      "at_utc": "2026-10-15T04:34:21.434710+00:00",
+      "input_token_source": "none (response header only after first request)",
+      "input_cookies_used": false,
+      "business_success": true,
+      "attempts": [
+        {
+          "http_status": 403,
+          "response_bytes": 0,
+          "request_token_length": 0,
+          "request_token_matches": true,
+          "cookie_token_matches": true,
+          "response_token_length": 128,
+          "response_is_json": false,
+          "business_success": false,
+          "attempt": 1,
+          "generated_signature_lengths": {
+            "X-Dynosaur": 512,
+            "X-Bogus": 1,
+            "X-Gnarly": 332
+          }
+        },
+        {
+          "http_status": 200,
+          "response_bytes": 8389,
+          "request_token_length": 128,
+          "request_token_matches": true,
+          "cookie_token_matches": true,
+          "response_token_length": 128,
+          "response_is_json": true,
+          "business_success": true,
+          "status_code": 0,
+          "cursor": 6,
+          "has_more": 1,
+          "comments_count": 3,
+          "ids_match": true,
+          "unique_comment_ids": true,
+          "attempt": 2,
+          "generated_signature_lengths": {
+            "X-Dynosaur": 512,
+            "X-Bogus": 1,
+            "X-Gnarly": 332
+          }
+        }
+      ]
+    },
+    {
+      "case": "client_fresh_bootstrap_0",
+      "at_utc": "2026-10-15T04:35:35.175614+00:00",
+      "input_token_source": "none (response header only after first request)",
+      "input_cookies_used": false,
+      "business_success": true,
+      "attempts": [
+        {
+          "http_status": 403,
+          "response_bytes": 0,
+          "request_token_length": 0,
+          "request_token_matches": true,
+          "cookie_token_matches": true,
+          "response_token_length": 128,
+          "response_is_json": false,
+          "business_success": false,
+          "attempt": 1,
+          "generated_signature_lengths": {
+            "X-Dynosaur": 512,
+            "X-Bogus": 1,
+            "X-Gnarly": 332
+          }
+        },
+        {
+          "http_status": 200,
+          "response_bytes": 8389,
+          "request_token_length": 128,
+          "request_token_matches": true,
+          "cookie_token_matches": true,
+          "response_token_length": 128,
+          "response_is_json": true,
+          "business_success": true,
+          "status_code": 0,
+          "cursor": 6,
+          "has_more": 1,
+          "comments_count": 3,
+          "ids_match": true,
+          "unique_comment_ids": true,
+          "attempt": 2,
+          "generated_signature_lengths": {
+            "X-Dynosaur": 512,
+            "X-Bogus": 1,
+            "X-Gnarly": 332
+          }
+        }
+      ]
+    },
+    {
+      "case": "client_fresh_bootstrap_1",
+      "at_utc": "2026-10-15T04:35:38.769367+00:00",
+      "input_token_source": "none (response header only after first request)",
+      "input_cookies_used": false,
+      "business_success": true,
+      "attempts": [
+        {
+          "http_status": 403,
+          "response_bytes": 0,
+          "request_token_length": 0,
+          "request_token_matches": true,
+          "cookie_token_matches": true,
+          "response_token_length": 128,
+          "response_is_json": false,
+          "business_success": false,
+          "attempt": 1,
+          "generated_signature_lengths": {
+            "X-Dynosaur": 512,
+            "X-Bogus": 1,
+            "X-Gnarly": 332
+          }
+        },
+        {
+          "http_status": 200,
+          "response_bytes": 8314,
+          "request_token_length": 128,
+          "request_token_matches": true,
+          "cookie_token_matches": true,
+          "response_token_length": 128,
+          "response_is_json": true,
+          "business_success": true,
+          "status_code": 0,
+          "cursor": 6,
+          "has_more": 1,
+          "comments_count": 3,
+          "ids_match": true,
+          "unique_comment_ids": true,
+          "attempt": 2,
+          "generated_signature_lengths": {
+            "X-Dynosaur": 512,
+            "X-Bogus": 1,
+            "X-Gnarly": 332
+          }
+        }
+      ]
+    },
+    {
+      "case": "client_next_page_cursor6",
+      "at_utc": "2026-10-15T04:35:41.345359+00:00",
+      "input_token_source": "none (response header only after first request)",
+      "input_cookies_used": false,
+      "business_success": true,
+      "attempts": [
+        {
+          "http_status": 200,
+          "response_bytes": 8325,
+          "request_token_length": 128,
+          "request_token_matches": true,
+          "cookie_token_matches": true,
+          "response_token_length": 128,
+          "response_is_json": true,
+          "business_success": true,
+          "status_code": 0,
+          "cursor": 9,
+          "has_more": 1,
+          "comments_count": 3,
+          "ids_match": true,
+          "unique_comment_ids": true,
+          "attempt": 1,
+          "generated_signature_lengths": {
+            "X-Dynosaur": 512,
+            "X-Bogus": 1,
+            "X-Gnarly": 332
+          }
+        }
+      ]
+    },
+    {
+      "case": "client_invalid_dynosaur_control",
+      "at_utc": "2026-10-15T04:35:44.050639+00:00",
+      "input_token_source": "none (response header only after first request)",
+      "input_cookies_used": false,
+      "business_success": false,
+      "attempts": [
+        {
+          "http_status": 200,
+          "response_bytes": 0,
+          "request_token_length": 128,
+          "request_token_matches": true,
+          "cookie_token_matches": true,
+          "response_token_length": 128,
+          "response_is_json": false,
+          "business_success": false,
+          "attempt": 1
+        },
+        {
+          "http_status": 200,
+          "response_bytes": 0,
+          "request_token_length": 128,
+          "request_token_matches": true,
+          "cookie_token_matches": true,
+          "response_token_length": 128,
+          "response_is_json": false,
+          "business_success": false,
+          "attempt": 2
+        }
+      ]
+    },
+    {
+      "case": "client_positive_after_negative",
+      "at_utc": "2026-10-15T04:35:46.628664+00:00",
+      "input_token_source": "none (response header only after first request)",
+      "input_cookies_used": false,
+      "business_success": true,
+      "attempts": [
+        {
+          "http_status": 200,
+          "response_bytes": 8389,
+          "request_token_length": 128,
+          "request_token_matches": true,
+          "cookie_token_matches": true,
+          "response_token_length": 128,
+          "response_is_json": true,
+          "business_success": true,
+          "status_code": 0,
+          "cursor": 6,
+          "has_more": 1,
+          "comments_count": 3,
+          "ids_match": true,
+          "unique_comment_ids": true,
+          "attempt": 1,
+          "generated_signature_lengths": {
+            "X-Dynosaur": 512,
+            "X-Bogus": 1,
+            "X-Gnarly": 332
+          }
+        }
+      ]
+    },
+    {
+      "case": "cli_original_context_after_cookie_parser_fix",
+      "at_utc": "2026-10-15T04:39:19.693430+00:00",
+      "input_token_source": "context",
+      "input_cookies_used": true,
+      "business_success": true,
+      "attempts": [
+        {
+          "http_status": 200,
+          "response_bytes": 0,
+          "request_token_length": 176,
+          "request_token_matches": true,
+          "cookie_token_matches": true,
+          "response_token_length": 176,
+          "response_is_json": false,
+          "business_success": false,
+          "attempt": 1,
+          "generated_signature_lengths": {
+            "X-Dynosaur": 512,
+            "X-Bogus": 1,
+            "X-Gnarly": 332
+          }
+        },
+        {
+          "http_status": 200,
+          "response_bytes": 8389,
+          "request_token_length": 176,
+          "request_token_matches": true,
+          "cookie_token_matches": true,
+          "response_token_length": 176,
+          "response_is_json": true,
+          "business_success": true,
+          "status_code": 0,
+          "cursor": 6,
+          "has_more": 1,
+          "comments_count": 3,
+          "ids_match": true,
+          "unique_comment_ids": true,
+          "attempt": 2,
+          "generated_signature_lengths": {
+            "X-Dynosaur": 512,
+            "X-Bogus": 1,
+            "X-Gnarly": 332
+          }
+        }
+      ]
+    }
+  ],
+  "report_token_control": [
+    {
+      "case": "issued_run0_rotation0",
+      "at_utc": "2026-10-15T04:29:22.773384+00:00",
+      "http_status": 200,
+      "body_bytes": 0,
+      "request_token_length": 152,
+      "response_token_length": 152,
+      "request_token_matches": true,
+      "original_cookies_used": true,
+      "business_success": false
+    },
+    {
+      "case": "issued_run0_rotation1",
+      "at_utc": "2026-10-15T04:29:25.563946+00:00",
+      "http_status": 200,
+      "body_bytes": 0,
+      "request_token_length": 152,
+      "response_token_length": 152,
+      "request_token_matches": true,
+      "original_cookies_used": true,
+      "business_success": false
+    },
+    {
+      "case": "issued_run0_rotation2",
+      "at_utc": "2026-10-15T04:29:28.781387+00:00",
+      "http_status": 200,
+      "body_bytes": 0,
+      "request_token_length": 152,
+      "response_token_length": 152,
+      "request_token_matches": true,
+      "original_cookies_used": true,
+      "business_success": false
+    },
+    {
+      "case": "issued_run1_rotation0",
+      "at_utc": "2026-10-15T04:29:33.637453+00:00",
+      "http_status": 200,
+      "body_bytes": 0,
+      "request_token_length": 148,
+      "response_token_length": 148,
+      "request_token_matches": true,
+      "original_cookies_used": false,
+      "business_success": false
+    },
+    {
+      "case": "issued_run1_rotation1",
+      "at_utc": "2026-10-15T04:29:36.368932+00:00",
+      "http_status": 200,
+      "body_bytes": 0,
+      "request_token_length": 148,
+      "response_token_length": 148,
+      "request_token_matches": true,
+      "original_cookies_used": false,
+      "business_success": false
+    },
+    {
+      "case": "issued_run1_rotation2",
+      "at_utc": "2026-10-15T04:29:39.154329+00:00",
+      "http_status": 200,
+      "body_bytes": 0,
+      "request_token_length": 148,
+      "response_token_length": 148,
+      "request_token_matches": true,
+      "original_cookies_used": false,
+      "business_success": false
+    }
+  ],
+  "validation": "HTTP 200, JSON status_code 0, nonempty comments, unique cid, every aweme_id/reply_id equals requested item/parent, and exact unique query/Cookie msToken matching.",
+  "limitations": [
+    "msToken is server-issued online, not computed offline.",
+    "Report-issued tokens remained unusable for replies in both tested sessions.",
+    "Other request context was supplied, not generated from zero.",
+    "X-Bogus is the project literal marker 1; successful presence does not prove server enforcement of every signature.",
+    "Results apply to this endpoint, network and sampled requests; no guarantee for other endpoints or future policy.",
+    "Empty terminal pages are deliberately not counted as successful data-validation samples."
+  ],
+  "offline_tests": {
+    "passed": 75,
+    "warnings": 2,
+    "warnings_source": "existing protobuf deprecations"
+  }
+}

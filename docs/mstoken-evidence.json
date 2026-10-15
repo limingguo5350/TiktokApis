@@ -1,0 +1,330 @@
+{
+  "date": "2026-10-15",
+  "runtime": {
+    "language": "Python 3.12",
+    "transport": "curl_cffi 0.13",
+    "browser_required": false,
+    "node_required": false,
+    "proxy_used": true
+  },
+  "sdk": {
+    "scm_version": "1.0.0.417",
+    "sdk_version": "5.3.2",
+    "source_sha256": "6625c4fd90012eb2b6166002b278ac99ba2a2495325590f8eda9071544a814c8"
+  },
+  "private_real_report_parity": [
+    {
+      "plaintext_chars": 6403,
+      "encoded_chars": 5404,
+      "exact_match": true
+    },
+    {
+      "plaintext_chars": 6273,
+      "encoded_chars": 5164,
+      "exact_match": true
+    }
+  ],
+  "independent_default_profile_checks": [
+    {
+      "profile": "default",
+      "acquired": true,
+      "length": 152,
+      "cache_reused": true,
+      "refreshed": true,
+      "refresh_length": 152,
+      "rotated": true
+    },
+    {
+      "profile": "auth-default",
+      "acquired": true,
+      "length": 152,
+      "cache_reused": true,
+      "refreshed": true,
+      "refresh_length": 152,
+      "rotated": true
+    }
+  ],
+  "cli": {
+    "issued": true,
+    "token_length": 152,
+    "refreshed": true,
+    "refresh_length": 152,
+    "rotated": true
+  },
+  "business_api": {
+    "token_issued": true,
+    "endpoint": "/api/user/detail/",
+    "http_status": 200,
+    "body_bytes": 0,
+    "business_success": false,
+    "context": "fresh anonymous HTTP session; existing Python signer; no captured device identity",
+    "response_is_json": false
+  },
+  "offline_tests": {
+    "passed": 42
+  },
+  "scope": "Token issuance/refresh verified. Two public data endpoints succeeded with new token and Python signer using anonymous request context; unissued/unsigned controls also succeeded. Strict token validation and browser-free session bootstrap remain unverified.",
+  "auth_owned_client_online": {
+    "issued": true,
+    "refreshed": true,
+    "rotated": true,
+    "token_length": 152,
+    "refresh_length": 152,
+    "all_storage_copies_match": true,
+    "browser_modules_loaded": false
+  },
+  "business_verification_2026_10_15": {
+    "method": "New server-issued token and project Python signer; real HTTPS GETs; exact outgoing query-token match checked",
+    "runtime_browser_required": false,
+    "anonymous_request_context_initially_obtained_from_browser": true,
+    "account_login_used": false,
+    "checks": [
+      {
+        "endpoint": "/api/user/playlist/",
+        "token_issued": true,
+        "token_length": 152,
+        "browser_used_by_verifier": false,
+        "request_context_source": "caller-supplied anonymous request",
+        "results": [
+          {
+            "mode": "issued_token",
+            "http_status": 200,
+            "response_bytes": 9176,
+            "request_token_matches": true,
+            "request_token_length": 152,
+            "response_is_json": true,
+            "business_success": true,
+            "status_codes": [
+              0,
+              0
+            ],
+            "data_field": "playList",
+            "item_count": 5,
+            "sample": {
+              "name": "Songs Of The Summer 2026",
+              "mixName": "Songs Of The Summer 2026",
+              "videoCount": 3
+            }
+          },
+          {
+            "mode": "unissued_control",
+            "http_status": 200,
+            "response_bytes": 9176,
+            "request_token_matches": true,
+            "request_token_length": 152,
+            "response_is_json": true,
+            "business_success": true,
+            "status_codes": [
+              0,
+              0
+            ],
+            "data_field": "playList",
+            "item_count": 5,
+            "sample": {
+              "name": "Songs Of The Summer 2026",
+              "mixName": "Songs Of The Summer 2026",
+              "videoCount": 3
+            }
+          },
+          {
+            "mode": "unsigned_no_token_control",
+            "http_status": 200,
+            "response_bytes": 9176,
+            "request_token_matches": true,
+            "request_token_length": 0,
+            "response_is_json": true,
+            "business_success": true,
+            "status_codes": [
+              0,
+              0
+            ],
+            "data_field": "playList",
+            "item_count": 5,
+            "sample": {
+              "name": "Songs Of The Summer 2026",
+              "mixName": "Songs Of The Summer 2026",
+              "videoCount": 3
+            }
+          }
+        ],
+        "issued_token_business_success": true,
+        "controls_also_return_data": true,
+        "strict_token_validation": "not_established"
+      },
+      {
+        "endpoint": "/api/user/collection_list/",
+        "token_issued": true,
+        "token_length": 152,
+        "browser_used_by_verifier": false,
+        "request_context_source": "caller-supplied anonymous request",
+        "results": [
+          {
+            "mode": "issued_token",
+            "http_status": 200,
+            "response_bytes": 1318,
+            "request_token_matches": true,
+            "request_token_length": 152,
+            "response_is_json": true,
+            "business_success": true,
+            "status_codes": [
+              0,
+              0
+            ],
+            "data_field": "collectionList",
+            "item_count": 1,
+            "sample": {
+              "name": "Summer of Sports",
+              "total": "139"
+            }
+          },
+          {
+            "mode": "unissued_control",
+            "http_status": 200,
+            "response_bytes": 1314,
+            "request_token_matches": true,
+            "request_token_length": 152,
+            "response_is_json": true,
+            "business_success": true,
+            "status_codes": [
+              0,
+              0
+            ],
+            "data_field": "collectionList",
+            "item_count": 1,
+            "sample": {
+              "name": "Summer of Sports",
+              "total": "139"
+            }
+          },
+          {
+            "mode": "unsigned_no_token_control",
+            "http_status": 200,
+            "response_bytes": 1314,
+            "request_token_matches": true,
+            "request_token_length": 0,
+            "response_is_json": true,
+            "business_success": true,
+            "status_codes": [
+              0,
+              0
+            ],
+            "data_field": "collectionList",
+            "item_count": 1,
+            "sample": {
+              "name": "Summer of Sports",
+              "total": "139"
+            }
+          }
+        ],
+        "issued_token_business_success": true,
+        "controls_also_return_data": true,
+        "strict_token_validation": "not_established"
+      }
+    ],
+    "additional_controls": [
+      {
+        "mode": "issued_token_full_context",
+        "endpoint": "/api/user/playlist/",
+        "http_status": 200,
+        "bytes": 9176,
+        "request_token_matches": true,
+        "new_token_length": 152,
+        "json": true,
+        "status_code": 0,
+        "item_count": 5
+      },
+      {
+        "mode": "dummy_token_full_context",
+        "endpoint": "/api/user/playlist/",
+        "http_status": 200,
+        "bytes": 9176,
+        "request_token_matches": true,
+        "new_token_length": 152,
+        "json": true,
+        "status_code": 0,
+        "item_count": 5
+      },
+      {
+        "mode": "issued_token_no_other_cookies",
+        "endpoint": "/api/user/playlist/",
+        "http_status": 200,
+        "bytes": 9176,
+        "request_token_matches": true,
+        "new_token_length": 152,
+        "json": true,
+        "status_code": 0,
+        "item_count": 5
+      },
+      {
+        "mode": "unsigned_no_token_no_cookies",
+        "endpoint": "/api/user/playlist/",
+        "http_status": 200,
+        "bytes": 9176,
+        "request_token_matches": true,
+        "new_token_length": 152,
+        "json": true,
+        "status_code": 0,
+        "item_count": 5
+      },
+      {
+        "mode": "issued_token_full_context",
+        "endpoint": "/api/user/collection_list/",
+        "http_status": 200,
+        "bytes": 1314,
+        "request_token_matches": true,
+        "new_token_length": 152,
+        "json": true,
+        "status_code": 0,
+        "item_count": 1
+      },
+      {
+        "mode": "dummy_token_full_context",
+        "endpoint": "/api/user/collection_list/",
+        "http_status": 200,
+        "bytes": 1314,
+        "request_token_matches": true,
+        "new_token_length": 152,
+        "json": true,
+        "status_code": 0,
+        "item_count": 1
+      },
+      {
+        "mode": "issued_token_no_other_cookies",
+        "endpoint": "/api/user/collection_list/",
+        "http_status": 200,
+        "bytes": 1314,
+        "request_token_matches": true,
+        "new_token_length": 152,
+        "json": true,
+        "status_code": 0,
+        "item_count": 1
+      },
+      {
+        "mode": "unsigned_no_token_no_cookies",
+        "endpoint": "/api/user/collection_list/",
+        "http_status": 200,
+        "bytes": 1318,
+        "request_token_matches": true,
+        "new_token_length": 152,
+        "json": true,
+        "status_code": 0,
+        "item_count": 1
+      }
+    ],
+    "browser_baseline": {
+      "user_playlist": "HTTP 200, statusCode 0, 5 playlists",
+      "user_collection_list": "HTTP 200, statusCode 0, 1 collection",
+      "user_detail": "HTTP 200 empty body; subsequent response had empty userInfo",
+      "post_item_list": "HTTP 200 empty body"
+    },
+    "fresh_http_bootstrap": {
+      "browser_context_used": false,
+      "http_status": 200,
+      "body_bytes": 1462,
+      "hydration_found": false,
+      "business_request_attempted": false
+    },
+    "browser_token_injection": "Excluded from positive results because the actual SDK outgoing token did not equal the Python-issued token",
+    "conclusion": "Real data retrieval while carrying the new token verified for two public endpoints. Both negative controls also succeeded: strict server-side token validation is not established. No complete browser-free session bootstrap or universal business API success is claimed."
+  }
+}

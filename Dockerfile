@@ -20,7 +20,7 @@ COPY signing ./signing
 COPY reverse/tiktok_shop_bsid/env ./reverse/tiktok_shop_bsid/env
 COPY static ./static
 COPY utils ./utils
-COPY demo.py ./
+COPY demo.py mstoken_demo.py mstoken_verify.py reply_verify.py ./
 COPY README.md ./
 
 CMD ["python", "-c", "import api.tiktok, api.tiktok_chat; print('TikTok Reverse API image ready')"]

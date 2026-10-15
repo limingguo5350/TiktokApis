@@ -17,3 +17,5 @@ static/node_modules/
 .env
 .env.*
 .tiktok-runtime*.json
+
+.private-ms-token/

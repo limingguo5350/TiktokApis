@@ -1,0 +1,38 @@
+[
+  {
+    "plain": "{\"aid\":1988,\"test\":\"synthetic-one\"}",
+    "key": [
+      734155767,
+      2624658831,
+      608868297,
+      572759530,
+      657694581,
+      818781814,
+      1544558311,
+      1945673176,
+      2180827896,
+      3677961031,
+      1691575260,
+      1431601627
+    ],
+    "encoded": "wHw75oxtEMpEthHDtxMdQVSUW2rsbyYLcTyNKqIl8nU9quyjGJRf107UCZMVnFnkvruG9tJNy93+EXvXjSa9b2PVRBMJDQCwfWU3eq3wi7Vr/cjC"
+  },
+  {
+    "plain": "{\"aid\":1988,\"test\":\"synthetic-two\",\"value\":123}",
+    "key": [
+      2791329648,
+      3633217132,
+      219936228,
+      3806980009,
+      1408110971,
+      1163087450,
+      2773638065,
+      2792546982,
+      761247931,
+      2345059700,
+      4126639675,
+      2642721905
+    ],
+    "encoded": "wnfyiJ0A8a9CAAoI4ogLIHgmNsQZaEfTvNxwFcnpriuW32GciaRmNUoPo+6rxNmEWgtEToJCNzNLtvu0OAlTVquvab053b0huXzwT5+7WO5amhSzU8147rm4teXJFKwU"
+  }
+]

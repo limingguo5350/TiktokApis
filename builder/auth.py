@@ -44,7 +44,8 @@ def _cookie_pair(token: str):
 class TiktokAuth:
     """Reusable TikTok web session state.
 
-    The only supported public acquisition path is ``TiktokAuth.from_cookie``.
+    Login state is supplied through ``TiktokAuth.from_cookie``. Anonymous
+    msToken acquisition/refresh is available through ``ensure_ms_token``.
     Password, QR-code, SMS and other Passport login flows are intentionally
     reserved in ``api.tiktok_login`` and are not implemented yet.
 
@@ -76,6 +77,7 @@ class TiktokAuth:
                  device_id: str = "", odin_id: str = "", region: str = "SG",
                  priority_region: str = "SG", signatures: Optional[Mapping] = None,
                  signature_lengths: Optional[Mapping] = None, signer=None, **runtime):
+        self._ms_token_client = None
         self._raw_cookie_tokens: list[str] = []
         self.cookie = CookieDict(owner=self)
         self._cookie_str = ""
@@ -161,6 +163,60 @@ class TiktokAuth:
         return (self.session_storage.get("msToken")
                 or self.local_storage.get("msToken")
                 or self.cookie.get("msToken", ""))
+
+    def set_ms_token(self, token: str):
+        """Replace all token copies so stale storage cannot override renewal."""
+        from utils.mstoken import MsTokenClient
+        if not MsTokenClient._valid_token(token):
+            raise ValueError("msToken must be a nonempty ASCII cookie token")
+        self.set_cookie("msToken", token)
+        self.local_storage["msToken"] = token
+        self.session_storage["msToken"] = token
+        pairs = _cookie_tokens(self.document_cookie)
+        pairs = [f"msToken={token}" if _cookie_pair(item)[0] == "msToken" else item
+                 for item in pairs]
+        if not any(_cookie_pair(item)[0] == "msToken" for item in pairs):
+            pairs.append(f"msToken={token}")
+        self.document_cookie = "; ".join(pairs)
+        return self
+
+    def ensure_ms_token(self, *, client=None, force: bool = False, **client_options) -> str:
+        """Acquire a token explicitly; constructing Auth never sends a report.
+
+        An externally supplied token is preserved unless force=True. Tokens
+        acquired here use the client's cache policy. Pass proxy/profile/region
+        on first creation, or supply your own MsTokenClient (caller closes it).
+        """
+        if client is not None and client_options:
+            raise ValueError("pass client or client options, not both")
+        if client is None and self._ms_token_client is None and self.ms_token and not force:
+            return self.ms_token
+        if client is None:
+            if self._ms_token_client is not None and client_options:
+                raise ValueError("close_ms_token_client before changing client options")
+            if self._ms_token_client is None:
+                from utils.mstoken import MsTokenClient
+                options = dict(client_options)
+                options.setdefault("user_agent", self.user_agent)
+                if options["user_agent"] != self.user_agent:
+                    raise ValueError("msToken client and Auth must use the same user_agent")
+                self._ms_token_client = MsTokenClient(**options)
+            client = self._ms_token_client
+        if client.user_agent != self.user_agent:
+            raise ValueError("msToken client and Auth must use the same user_agent")
+        token = client.get_token(force=force, previous_token=self.ms_token)
+        self.set_ms_token(token)
+        return token
+
+    def refresh_ms_token(self, *, client=None, **client_options) -> str:
+        """Force one online renewal, using the current token when present."""
+        return self.ensure_ms_token(client=client, force=True, **client_options)
+
+    def close_ms_token_client(self):
+        """Close only the report client created by this Auth instance."""
+        if self._ms_token_client is not None:
+            self._ms_token_client.close()
+            self._ms_token_client = None
 
     @property
     def ttwid(self) -> str:
@@ -274,7 +330,7 @@ class TiktokAuth:
         return self
 
     def apply_set_cookie(self, headers):
-        """Merge Set-Cookie values from requests/curl_cffi response headers."""
+        """Merge cookies and synchronize every copy of a rotated msToken."""
         values = []
         try:
             values = list(headers.get_list("set-cookie"))
@@ -285,8 +341,21 @@ class TiktokAuth:
         for value in values:
             token = str(value).split(";", 1)[0]
             name, item = _cookie_pair(token)
-            if name:
+            if name == "msToken":
+                from utils.mstoken import MsTokenClient
+                if MsTokenClient._valid_token(item):
+                    self.set_ms_token(item)
+            elif name:
                 self.set_cookie(name, item)
+        # API responses can rotate the token through this header without a
+        # Set-Cookie. Storage must move with it or ms_token keeps resolving
+        # to the old sessionStorage value on the next signed request.
+        token = next((str(value) for key, value in (headers or {}).items()
+                      if str(key).lower() == "x-ms-token"), "")
+        if token:
+            from utils.mstoken import MsTokenClient
+            if MsTokenClient._valid_token(token):
+                self.set_ms_token(token)
         return self
 
     def set_wire_evidence(self, path: str, *, x_dynosaur: str, x_gnarly: str,

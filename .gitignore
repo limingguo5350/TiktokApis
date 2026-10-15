@@ -48,3 +48,5 @@ signing/evidence_cookie_current.json
 # TikTok Shop's env directory is the checked-in browser shim, not a venv.
 !reverse/tiktok_shop_bsid/env/
 !reverse/tiktok_shop_bsid/env/*.js
+
+.private-ms-token/

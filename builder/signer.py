@@ -122,7 +122,8 @@ class TiktokSigner:
              shared_cache: Optional[Mapping[str, object]] = None,
              local_storage: Optional[Mapping[str, str]] = None,
              session_storage: Optional[Mapping[str, str]] = None,
-             signing_timestamp: Optional[int] = None) -> dict[str, object]:
+             signing_timestamp: Optional[int] = None,
+             allow_missing_ms_token: bool = False) -> dict[str, object]:
         if isinstance(body, bytes):
             try:
                 body = body.decode("utf-8")
@@ -135,6 +136,12 @@ class TiktokSigner:
             raise SignerError("签名需要完整 headers，不能使用空 header 集合")
         if str(method).upper() in {"POST", "PUT", "PATCH"} and body is None:
             raise SignerError("签名需要完整 body，不能对有 body 的方法省略 body")
+        if allow_missing_ms_token:
+            parsed = urlsplit(url)
+            if (str(method).upper() != "GET" or body not in (None, "")
+                    or parsed.scheme != "https" or parsed.netloc != "www.tiktok.com"
+                    or parsed.path != "/api/comment/list/reply/" or parsed.fragment):
+                raise SignerError("无 msToken bootstrap 仅支持公开评论回复 GET")
         # Creator Studio's captured 5.1.0/ubcode-136 family also includes
         # the Studio posted-work list, even though that POST is read-only.
         if ("/tiktok/web/project/post/v1/" in url
@@ -150,6 +157,7 @@ class TiktokSigner:
             url=url, method=method, body=body, user_agent=user_agent,
             referer=referer, expected_lengths=expected_lengths, metrics=metrics,
             signing_timestamp=signing_timestamp,
+            allow_missing_ms_token=allow_missing_ms_token,
         )
 
     @staticmethod
@@ -157,13 +165,14 @@ class TiktokSigner:
                           user_agent: str, referer: str,
                           expected_lengths: Optional[Mapping[str, int]],
                           metrics: Optional[Mapping[str, object]] = None,
-                          signing_timestamp: Optional[int] = None) -> dict[str, object]:
-        """Calculate the current four-field legacy Web API contract locally."""
+                          signing_timestamp: Optional[int] = None,
+                          allow_missing_ms_token: bool = False) -> dict[str, object]:
+        """Calculate legacy signatures, optionally before reply token issuance."""
         parsed = urlsplit(str(url))
         parts = parsed.query.split("&") if parsed.query else []
         token_parts = [part for part in parts if part.startswith("msToken=")]
         token = token_parts[-1].split("=", 1)[1] if token_parts else ""
-        if not token:
+        if not token and not allow_missing_ms_token:
             raise SignerError("legacy Web API unsigned URL 缺少浏览器 msToken")
         base_parts = [
             part for part in parts
@@ -226,7 +235,9 @@ class TiktokSigner:
             text_ratio=int(metric_values.get("text_ratio", 2)),
             runtime_field8=str(field8), runtime_field18=field18, runtime_field19=field19,
         )
-        signed_query = f"{base_query}&X-Dynosaur={dynosaur}&{token_parts[-1]}"
+        signed_query = f"{base_query}&X-Dynosaur={dynosaur}"
+        if token:
+            signed_query += "&" + token_parts[-1]
         gnarly = encode_gnarly_current(
             signed_query, "" if body is None else body, user_agent,
             envcode=int(metric_values.get("envcode", 65)),
@@ -246,7 +257,7 @@ class TiktokSigner:
         )
         values = {
             "X-Dynosaur": dynosaur,
-            "msToken": token,
+            **({"msToken": token} if token else {}),
             # The current web API sends a literal one-byte marker here; it is
             # an endpoint contract, not a value to pad or copy from a capture.
             "X-Bogus": "1",
